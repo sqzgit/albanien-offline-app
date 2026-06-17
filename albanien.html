@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#e61c24">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albanien Offline Guide 🇦🇱</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary: #e61c24; /* Albanisches Rot */
+            --text: #333333;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text);
+            margin: 0;
+            padding: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 5px;
+        }
+
+        /* Währungsrechner Styles */
+        .calc-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        /* Vokabel Styles */
+        .vocab-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .vocab-row:last-child { border-bottom: none; }
+        
+        .play-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .emergency-item {
+            margin-bottom: 8px;
+        }
+        .emergency-item strong { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <h1>🇦🇱 Albanien-Guide 🇦🇱</h1>
+
+    <div class="card">
+        <h2>💶 LEK / EUR Rechner (Fester Kurs)</h2>
+        <div class="calc-group">
+            <input type="number" id="eur" placeholder="Euro (EUR)" oninput="calcEurToLek()">
+            <input type="number" id="lek" placeholder="Lek (ALL)" oninput="calcLekToEur()">
+        </div>
+        <small style="color: #666;">Kurs: 1 EUR = 100 LEK (Fixer Offline-Wert)</small>
+    </div>
+
+    <div class="card">
+        <h2>🗣️ Kleiner Sprachführer</h2>
+        
+        <div class="vocab-row">
+            <div><strong>Faleminderit</strong><br><small>Danke</small></div>
+            <button class="play-btn" onclick="playAudio('danke')">▶</button>
+        </div>
+        
+        <div class="vocab-row">
+            <div><strong>Mirëdita</strong><br><small>Guten Tag</small></div>
+            <button class="play-btn" onclick="playAudio('tag')">▶</button>
+        </div>
+
+        <div class="vocab-row">
+            <div><strong>Sa kushton?</strong><br><small>Wie viel kostet das?</small></div>
+            <button class="play-btn" onclick="playAudio('preis')">▶</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>ℹ️ Wichtige Infos</h2>
+        <div class="emergency-item"><strong>Polizei:</strong> 129</div>
+        <div class="emergency-item"><strong>Rettungsdienst:</strong> 127</div>
+        <div class="emergency-item"><strong>Meine Nummer:</strong> +49 151...</div>
+        <div class="emergency-item"><strong>Hotel:</strong> Musterstraße 12, Tirana</div>
+    </div>
+
+    <script>
+        // Fester Wechselkurs (Aktuell ca. 1:100, kannst du anpassen)
+        const KURS = 100;
+
+        function calcEurToLek() {
+            const eur = document.getElementById('eur').value;
+            document.getElementById('lek').value = eur ? Math.round(eur * KURS) : '';
+        }
+
+        function calcLekToEur() {
+            const lek = document.getElementById('lek').value;
+            document.getElementById('eur').value = lek ? (lek / KURS).toFixed(2) : '';
+        }
+
+        // Hier binden wir später deine Sprachnachrichten ein
+        const audioFiles = {
+            danke: "DATA_BASE64_HIER",
+            tag: "DATA_BASE64_HIER",
+            preis: "DATA_BASE64_HIER"
+        };
+
+        function playAudio(key) {
+            const audioData = audioFiles[key];
+            if(audioData && audioData !== "DATA_BASE64_HIER") {
+                const audio = new Audio(audioData);
+                audio.play();
+            } else {
+                alert("Hier ist noch keine Sprachaufnahme hinterlegt!");
+            }
+        }
+    </script>
+    <script>
+        // Registriert den Service Worker, der für die Offline-Funktionalität sorgt
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registriert!', reg))
+                    .catch(err => console.error('Service Worker Fehler:', err));
+            });
+        }
+    </script>
+</body>
+</html>
