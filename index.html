@@ -7,247 +7,269 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#d32f2f">
     <style>
-        :root {
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --primary: #e61c24; /* Albanisches Rot */
-            --primary-dark: #b8141a;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --accent-tint: #fef2f2;
-        }
-        
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+                :root {
+                --bg-color: #f3f7f9;       /* Sanftes, helles Graublau */
+                --card-bg: #ffffff;
+                --primary: #1a5f7a;        /* Elegantes Riviera-Blau */
+                --primary-light: #57c5b6;  /* Helles Cyan für Verläufe */
+                --accent-veggie: #4f709c;  /* Soft-Blau für normale Zeilen */
+                --veggie-green: #22c55e;   /* Frisches Grün für vegetarische Tags */
+                --text-main: #1e293b;      /* Dunkles Schiefergrau */
+                --text-muted: #64748b;
+                --border: #e2e8f0;
+            }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            line-height: 1.5;
-        }
+            * {
+                box-sizing: border-box;
+                -webkit-tap-highlight-color: transparent;
+            }
 
-        .header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-            border-bottom-left-radius: 24px;
-            border-bottom-right-radius: 24px;
-            box-shadow: 0 4px 12px rgba(230, 28, 36, 0.2);
-            margin-bottom: 20px;
-        }
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                background-color: var(--bg-color);
+                color: var(--text-main);
+                margin: 0;
+                padding: 0;
+                line-height: 1.5;
+            }
 
-        .header h1 {
-            margin: 0;
-            font-size: 1.6rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
+            /* Neuer, moderner Header mit dezentem Verlauf */
+            .header {
+                background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Deep Ocean Verlauf */
+                color: white;
+                padding: 35px 20px;
+                text-align: center;
+                border-bottom-left-radius: 28px;
+                border-bottom-right-radius: 28px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                margin-bottom: 25px;
+            }
 
-        .header p {
-            margin: 5px 0 0 0;
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
+            .header h1 {
+                margin: 0;
+                font-size: 1.6rem;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+            }
 
-        .container {
-            padding: 0 16px 30px 16px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
+            .header p {
+                margin: 6px 0 0 0;
+                font-size: 0.95rem;
+                opacity: 0.8;
+            }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-            border: 1px solid var(--border);
-        }
+            .container {
+                padding: 0 16px 35px 16px;
+                max-width: 500px;
+                margin: 0 auto;
+            }
 
-        .card-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.15rem;
-            color: var(--text-main);
-            font-weight: 600;
-        }
+            /* Cards mit weicherem Schatten und leicht bläulichem Rahmen */
+            .card {
+                background: var(--card-bg);
+                border-radius: 20px;
+                padding: 22px;
+                margin-bottom: 22px;
+                box-shadow: 0 10px 25px rgba(26, 95, 122, 0.04);
+                border: 1px solid rgba(226, 232, 240, 0.8);
+            }
 
-        /* Währungsrechner Styles */
-        .calc-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+            .card-title {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-top: 0;
+                margin-bottom: 18px;
+                font-size: 1.2rem;
+                color: var(--primary);
+                font-weight: 700;
+            }
 
-        .input-group {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
+            /* Währungsrechner Inputs */
+            .calc-container {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+            }
 
-        .input-group input {
-            width: 100%;
-            padding: 14px 16px;
-            padding-right: 60px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--text-main);
-            background-color: #fff;
-            transition: border-color 0.2s;
-        }
+            .input-group {
+                position: relative;
+                display: flex;
+                align-items: center;
+            }
 
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
+            .input-group input {
+                width: 100%;
+                padding: 16px;
+                padding-right: 75px;
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                font-size: 1.15rem;
+                font-weight: 600;
+                color: var(--text-main);
+                background-color: #fff;
+                box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);
+                transition: all 0.2s ease;
+            }
 
-        .input-group .unit {
-            position: absolute;
-            right: 16px;
-            font-weight: 600;
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
+            .input-group input:focus {
+                outline: none;
+                border-color: var(--primary-light);
+                box-shadow: 0 0 0 3px rgba(87, 197, 182, 0.15);
+            }
 
-        .calc-info {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-align: center;
-            margin-top: 4px;
-        }
+            .input-group .unit {
+                position: absolute;
+                right: 18px;
+                font-weight: 700;
+                color: var(--primary);
+                font-size: 0.95rem;
+                background: #f0f7f9;
+                padding: 4px 8px;
+                border-radius: 8px;
+            }
 
-        /* Vokabel & Audio Styles */
-        .vocab-list {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
+            .calc-info {
+                font-size: 0.8rem;
+                color: var(--text-muted);
+                text-align: center;
+                margin-top: 2px;
+            }
 
-        .vocab-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 4px;
-            border-bottom: 1px solid var(--border);
-        }
+            /* Vokabel & Audio List */
+            .vocab-list {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
 
-        .vocab-row:last-child {
-            border-bottom: none;
-        }
+            .vocab-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 14px 4px;
+                border-bottom: 1px solid #f1f5f9;
+            }
 
-        .vocab-text .albanian {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
+            .vocab-row:last-child {
+                border-bottom: none;
+            }
 
-        .vocab-text .german {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
+            .vocab-text .albanian {
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: var(--text-main);
+            }
 
-        .play-btn {
-            background-color: var(--accent-tint);
-            border: none;
-            border-radius: 50%;
-            width: 42px;
-            height: 42px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.2s, transform 0.1s;
-        }
+            .vocab-text .german {
+                font-size: 0.9rem;
+                color: var(--text-muted);
+                margin-top: 3px;
+            }
 
-        .play-btn:active {
-            transform: scale(0.95);
-            background-color: #fca5a5;
-        }
+            /* Moderner, runder Audio-Button */
+            .play-btn {
+                background-color: #f0f7f9;
+                border: none;
+                border-radius: 14px;
+                width: 44px;
+                height: 44px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s ease;
+            }
 
-        .play-btn svg {
-            fill: var(--primary);
-            width: 16px;
-            height: 16px;
-            margin-left: 2px; /* Optische Zentrierung des Play-Dreiecks */
-        }
+            .play-btn:active {
+                transform: scale(0.92);
+                background-color: #e0f2f1;
+            }
 
-        /* Notfall & Infos Styles */
-        .info-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+            .play-btn svg {
+                fill: var(--primary);
+                width: 18px;
+                height: 18px;
+            }
 
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 12px;
-            background-color: #f8fafc;
-            border-radius: 10px;
-            border-left: 4px solid var(--primary);
-        }
+            /* Farbige Food-Tags für den Kompass */
+            .badge {
+                font-size: 0.75rem;
+                font-weight: 700;
+                padding: 3px 8px;
+                border-radius: 6px;
+                margin-left: 6px;
+                display: inline-block;
+                vertical-align: middle;
+            }
+            .badge.veggie { background-color: #e8f5e9; color: #2e7d32; }
+            .badge.vegan { background-color: #e0f2f1; color: #00695c; }
 
-        .info-label {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-muted);
-        }
+            /* Notfall-Bereich */
+            .info-list {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
 
-        .info-value {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
+            .info-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 14px;
+                background-color: #f8fafc;
+                border-radius: 12px;
+                border-left: 4px solid var(--primary-light);
+            }
 
-        .info-value a {
-            color: var(--text-main);
-            text-decoration: none;
-        }
+            .info-label {
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: var(--text-muted);
+            }
 
-        .hotel-box {
-            background-color: #f8fafc;
-            padding: 12px;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            border: 1px dashed var(--border);
-            margin-top: 8px;
-        }
+            .info-value {
+                font-size: 1rem;
+                font-weight: 700;
+                color: var(--primary);
+            }
 
-        /* Feedback Toast */
-        #toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background-color: #334155;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 1000;
-            white-space: nowrap;
-        }
+            .info-value a {
+                color: var(--primary);
+                text-decoration: none;
+            }
 
-        #toast.show {
-            transform: translateX(-50%) translateY(0);
-        }
-    </style>
+            .hotel-box {
+                background-color: #f8fafc;
+                padding: 14px;
+                border-radius: 14px;
+                font-size: 0.95rem;
+                border: 1px dashed var(--border);
+                margin-top: 6px;
+                line-height: 1.6;
+            }
+
+            /* Toast Nachricht */
+            #toast {
+                position: fixed;
+                bottom: 25px;
+                left: 50%;
+                transform: translateX(-50%) translateY(100px);
+                background-color: #1e293b;
+                color: white;
+                padding: 14px 28px;
+                border-radius: 16px;
+                font-size: 0.9rem;
+                font-weight: 500;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                z-index: 1000;
+            }
+
+            #toast.show {
+                transform: translateX(-50%) translateY(0);
+            }
+            </style>
 </head>
 <body>
 
@@ -276,8 +298,84 @@
                 <div class="calc-info">Wechselkurs: 1 EUR = 100 ALL (Fixer Offline-Wert)</div>
             </div>
         </div>
+        
+        <!-- 2. Trinkgeld-Rechner -->
+        <div class="card">
+            <div class="card-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <span>Trinkgeld-Rechner (~10%)</span>
+            </div>
+            <div class="calc-container">
+                <div class="input-group">
+                    <input type="number" id="billAmount" placeholder="Rechnungsbetrag in Lek" oninput="calculateTip()" inputmode="decimal">
+                    <span class="unit">ALL Lek</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-top: 8px; padding: 10px; background: var(--bg-color); border-radius: 10px;">
+                    <div>
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">Trinkgeld (10%):</span><br>
+                        <strong id="tipResult" style="color: var(--primary); font-size: 1.1rem;">0 ALL</strong>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted);">Gesamtbetrag:</span><br>
+                        <strong id="totalResult" style="font-size: 1.1rem;">0 ALL</strong>
+                    </div>
+                </div>
+                <div id="tipInEuro" style="font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 4px;">Das entspricht ca. 0.00 € Trinkgeld</div>
+            </div>
+        </div>
 
-        <!-- 2. SPICKZETTEL & AUDIO -->
+        <div class="card">
+            <div class="card-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <span>Veggie Food-Guide 🌿</span>
+            </div>
+            <div class="vocab-list">
+                
+                <div class="vocab-row">
+                    <div class="vocab-text">
+                        <div class="albanian">Byrek me Spinaq <span style="font-size:0.8rem; color:#4caf50;">(Veggie)</span></div>
+                        <div class="german">Blätterteigtasche gefüllt mit Spinat (manchmal auch mit Feta/Käse = <em>Byrek me Djathë</em>). Perfekter Snack!</div>
+                    </div>
+                </div>
+
+                <div class="vocab-row">
+                    <div class="vocab-text">
+                        <div class="albanian">Fergesë e Tiranës <span style="font-size:0.8rem; color:#4caf50;">(Veggie)</span></div>
+                        <div class="german">Ein genialer, warmer Eintopf/Dip aus Paprika, Tomaten, Gewürzen und geschmolzenem Hüttenkäse oder Feta. Dazu gibt's Brot.</div>
+                    </div>
+                </div>
+
+                <div class="vocab-row">
+                    <div class="vocab-text">
+                        <div class="albanian">Imam Bajalldi <span style="font-size:0.8rem; color:#8bc34a;">(Vegan)</span></div>
+                        <div class="german">Mit Tomaten, Zwiebeln und Knoblauch geschmorte, butterweiche Auberginen. Extrem lecker und von Natur aus vegan.</div>
+                    </div>
+                </div>
+
+                <div class="vocab-row">
+                    <div class="vocab-text">
+                        <div class="albanian">Kashkaval i Skuqur <span style="font-size:0.8rem; color:#4caf50;">(Veggie)</span></div>
+                        <div class="german">Panierter und in der Pfanne gebackener albanischer Schnittkäse. Außen knusprig, innen heiß und flüssig.</div>
+                    </div>
+                </div>
+
+                <div class="vocab-row">
+                    <div class="vocab-text">
+                        <div class="albanian">Perime në Zgarë <span style="font-size:0.8rem; color:#8bc34a;">(Vegan)</span></div>
+                        <div class="german">Frisches Grillgemüse (meistens Zucchini, Auberginen, Paprika und Pilze), oft mit Olivenöl und Kräutern verfeinert.</div>
+                    </div>
+                </div>
+
+                <div class="vocab-row">
+                    <div class="vocab-text">
+                        <div class="albanian">Sallatë Fshati <span style="font-size:0.8rem; color:#4caf50;">(Veggie / Vegan)</span></div>
+                        <div class="german">Traditioneller Bauernsalat mit Tomaten, Gurken, Oliven und Olivenöl. Kommt meistens mit Feta oben drauf (für vegan einfach ohne Käse bestellen: <em>pa djathë</em>).</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- 3. SPICKZETTEL & AUDIO -->
         <div class="card">
             <div class="card-title">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
@@ -348,7 +446,7 @@
             </div>
         </div>
 
-        <!-- 3. NOTFALL-INFO & ADRESSEN -->
+        <!-- 4. NOTFALL-INFO & ADRESSEN -->
         <div class="card">
             <div class="card-title">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
@@ -401,6 +499,28 @@
             const lek = document.getElementById('lek').value;
             document.getElementById('eur').value = lek ? (lek / KURS).toFixed(2) : '';
         }
+        
+        // Trinkgeld-Rechner (10%)
+        function calculateTip() {
+    const billInput = document.getElementById('billAmount').value;
+    const bill = parseFloat(billInput) || 0;
+    
+    if (bill > 0) {
+        // In Albanien rundet man meistens großzügig auf die nächsten 50 oder 100 Lek auf,
+        // aber 10% ist der perfekte Richtwert.
+        const tip = Math.round(bill * 0.10);
+        const total = bill + tip;
+        const tipInEuro = (tip / 100).toFixed(2); // Nutzt den fixen Kurs 1:100 für die Anzeige
+        
+        document.getElementById('tipResult').innerText = tip + " ALL";
+        document.getElementById('totalResult').innerText = total + " ALL";
+        document.getElementById('tipInEuro').innerText = `Das entspricht ca. ${tipInEuro} € Trinkgeld`;
+    } else {
+        document.getElementById('tipResult').innerText = "0 ALL";
+        document.getElementById('totalResult').innerText = "0 ALL";
+        document.getElementById('tipInEuro').innerText = "Das entspricht ca. 0.00 € Trinkgeld";
+    }
+}
 
         // Base64 Audio-Datenobjekt (Hier fügst du deine Strings ein)
         const audioFiles = {
