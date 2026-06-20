@@ -313,23 +313,23 @@
                 </div>
                 <div class="input-group">
                     <input type="number" id="lek" placeholder="0" oninput="calcLekToEur()" inputmode="decimal">
-                    <span class="unit">ALL Lek</span>
+                    <span class="unit">Lek</span>
                 </div>
-                <div class="calc-info">Wechselkurs: 1 EUR = 94,58 ALL</div>
+                <div class="calc-info">Wechselkurs: 1 EUR = 94,58 Lek</div>
                 
                 <div style="border-top: 1px solid var(--border); margin-top: 10px; padding-top: 14px;">
                     <div class="input-group">
                         <input type="number" id="billAmount" placeholder="Rechnungsbetrag" oninput="calculateTip()" inputmode="decimal">
-                        <span class="unit">ALL Lek</span>
+                        <span class="unit">Lek</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-top: 10px; padding: 12px; background: var(--bg-color); border-radius: 12px;">
                         <div>
                             <span style="font-size: 0.85rem; color: var(--text-muted);">Trinkgeld (10%):</span><br>
-                            <strong id="tipResult" style="color: var(--accent); font-size: 1.1rem;">0 ALL</strong>
+                            <strong id="tipResult" style="color: var(--accent); font-size: 1.1rem;">0 Lek</strong>
                         </div>
                         <div style="text-align: right;">
                             <span style="font-size: 0.85rem; color: var(--text-muted);">Gesamtbetrag:</span><br>
-                            <strong id="totalResult" style="font-size: 1.1rem; color: var(--primary);">0 ALL</strong>
+                            <strong id="totalResult" style="font-size: 1.1rem; color: var(--primary);">0 Lek</strong>
                         </div>
                     </div>
                     <div id="tipInEuro" style="font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 6px;">Das entspricht ca. 0.00 € Trinkgeld</div>
@@ -460,8 +460,6 @@
 
     </div>
 
-    <div id="toast">Meldung</div>
-
     <script>
         const KURS = 94.58;
 
@@ -480,12 +478,12 @@
             const bill = parseFloat(document.getElementById('billAmount').value) || 0;
             if (bill > 0) {
                 const tip = Math.round(bill * 0.10);
-                document.getElementById('tipResult').innerText = tip + " ALL";
-                document.getElementById('totalResult').innerText = (bill + tip) + " ALL";
+                document.getElementById('tipResult').innerText = tip + " Lek";
+                document.getElementById('totalResult').innerText = (bill + tip) + " Lek";
                 document.getElementById('tipInEuro').innerText = `Das entspricht ca. ${(tip / KURS).toFixed(2)} € Trinkgeld`;
             } else {
-                document.getElementById('tipResult').innerText = "0 ALL";
-                document.getElementById('totalResult').innerText = "0 ALL";
+                document.getElementById('tipResult').innerText = "0 Lek";
+                document.getElementById('totalResult').innerText = "0 Lek";
                 document.getElementById('tipInEuro').innerText = "Das entspricht ca. 0.00 € Trinkgeld";
             }
         }
