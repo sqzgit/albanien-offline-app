@@ -436,19 +436,32 @@
         <details class="card" id="compass-card">
             <summary>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
-                <span>Kompass & GPS</span>
+                <span>Wander-Kompass & GPS</span>
             </summary>
             <div class="calc-container" style="align-items: center; padding: 10px 0;">
                 
                 <div style="position: relative; width: 140px; height: 140px; border: 4px solid var(--border); border-radius: 50%; background: #fcfbfa; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
-    <div id="compass-rose" style="position: absolute; width: 100%; height: 100%; transition: transform 0.1s ease-out; transform: rotate(0deg);">
-        <span style="position: absolute; top: 6px; left: 50%; transform: translateX(-50%); font-weight: 800; color: #ef4444; font-size: 0.8rem;">N</span>
-        <span style="position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); font-weight: 800; color: var(--text-muted); font-size: 0.8rem;">S</span>
-        <span style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); font-weight: 800; color: var(--text-muted); font-size: 0.8rem;">W</span>
-        <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-weight: 800; color: var(--text-muted); font-size: 0.8rem;">O</span>
-    </div>
-    <div id="compass-pointer" style="width: 4px; height: 90px; background: linear-gradient(to bottom, #ef4444 50%, transparent 50%); border-radius: 2px; position: absolute; z-index: 10;"></div>
-</div>
+                    <div id="compass-pointer" style="width: 6px; height: 100px; background: linear-gradient(to bottom, #ef4444 50%, #64748b 50%); border-radius: 3px; transition: transform 0.1s ease-out; transform: rotate(0deg);"></div>
+                    <span style="position: absolute; top: 6px; font-weight: 800; color: #ef4444; font-size: 0.8rem;">N</span>
+                    <span style="position: absolute; bottom: 6px; font-weight: 800; color: var(--text-muted); font-size: 0.8rem;">S</span>
+                    <span style="position: absolute; left: 8px; font-weight: 800; color: var(--text-muted); font-size: 0.8rem;">W</span>
+                    <span style="position: absolute; right: 8px; font-weight: 800; color: var(--text-muted); font-size: 0.8rem;">O</span>
+                </div>
+                
+                <div id="compass-degrees" style="font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 15px;">0° Nord</div>
+
+                <div style="width: 100%; border-top: 1px solid var(--border); padding-top: 15px;">
+                    <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; text-align: center;">Deine GPS-Koordinaten (Offline-Satellit)</div>
+                    <div style="display: flex; gap: 10px; background: var(--bg-color); padding: 12px; border-radius: 12px; font-family: monospace; font-size: 0.95rem; justify-content: center; color: var(--primary);">
+                        <div>Lat: <strong id="gps-lat">Suche...</strong></div>
+                        <div style="color: var(--border);">|</div>
+                        <div>Lon: <strong id="gps-lon">Suche...</strong></div>
+                    </div>
+                    <button onclick="updateGPS()" style="width: 100%; margin-top: 10px; background: var(--accent-light); border: none; border-radius: 10px; padding: 10px; color: var(--accent); font-weight: 700; cursor: pointer; font-size: 0.9rem;">🔄 Standort aktualisieren</button>
+                </div>
+                
+            </div>
+        </details>
                 
                 </div>
         </details>
@@ -583,7 +596,7 @@
                 const degrees = Math.round(currentHeading);
                 
                 // 2. Nadel sanft drehen
-                document.getElementById('compass-rose').style.transform = `rotate(${-degrees}deg)`;
+                document.getElementById('compass-pointer').style.transform = `rotate(${-degrees}deg)`;
                 
                 // Himmelsrichtung ermitteln
                 let direction = "Nord";
@@ -599,6 +612,7 @@
                 
                 document.getElementById('compass-degrees').innerText = `${normalizedDegrees}° ${direction}`;
             }
+
         }
 
         // 2. GPS-Ortung über Satellit (funktioniert komplett ohne Internet!)
