@@ -582,7 +582,7 @@
             if (heading !== null && heading !== undefined) {
                 const degrees = Math.round(heading);
                 // Nadel drehen (wir drehen das Gehäuse entgegengesetzt zur Nordrichtung)
-                document.getElementById('compass-pointer').style.transform = `rotate(${-degrees}deg)`;
+                document.getElementById('compass-pointer').style.transform = `rotate(${degrees}deg)`;
                 
                 // Himmelsrichtung als Text ermitteln
                 let direction = "Nord";
@@ -594,7 +594,7 @@
                 else if (degrees > 247.5 && degrees <= 292.5) direction = "West";
                 else if (degrees > 292.5 && degrees <= 337.5) direction = "Nordwest";
                 
-                document.getElementById('compass-degrees').innerText = `${-degrees}° ${-direction}`;
+                document.getElementById('compass-degrees').innerText = `${degrees}° ${direction}`;
             }
         }
 
