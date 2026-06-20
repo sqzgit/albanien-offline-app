@@ -3,8 +3,10 @@ const CACHE_NAME = 'albanien-guide-v1';
 const ASSETS = [
   'index.html',
   'manifest.json',
-  'icon.png',
-  'icon-512.png'
+  'sw.js',
+  'pics/header.png', // <-- Hier auch den Ordner "pics/" davorpacken!
+  'pics/icon_192.png',
+  'pics/icon_512.png'
 ];
 
 // Beim Installieren der App werden die Dateien in den Cache geladen
