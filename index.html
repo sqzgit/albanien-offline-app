@@ -593,7 +593,7 @@
                 const degrees = Math.round(currentHeading);
                 
                 // 2. Nadel sanft drehen
-                document.getElementById('compass-pointer').style.transform = `rotate(${-degrees}deg)`;
+                document.getElementById('compass-pointer').style.transform = `rotate(${degrees}deg)`;
                 
                 // Himmelsrichtung ermitteln
                 let direction = "Nord";
