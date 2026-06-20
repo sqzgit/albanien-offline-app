@@ -571,8 +571,6 @@
             }
         }
 
-        let currentHeading = 0; // Speichert die aktuelle Position der Nadel
-
         function handleOrientation(event) {
             let heading = event.alpha;
             
@@ -596,7 +594,7 @@
                 const degrees = Math.round(currentHeading);
                 
                 // 2. Nadel sanft drehen
-                document.getElementById('compass-pointer').style.transform = `rotate(${-degrees}deg)`;
+                document.getElementById('compass-degrees').innerText = `${degrees}° ${direction}`;
                 
                 // Himmelsrichtung ermitteln
                 let direction = "Nord";
