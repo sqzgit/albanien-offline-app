@@ -568,30 +568,46 @@
             }
         }
 
+        let currentHeading = 0; // Speichert die aktuelle Position der Nadel
+
         function handleOrientation(event) {
             let heading = event.alpha;
             
-            // Webkit-Geräte (iOS/Safari) nutzen oft einen eigenen Wert
             if (event.webkitCompassHeading) {
                 heading = event.webkitCompassHeading;
             }
 
             if (heading !== null && heading !== undefined) {
-                const degrees = Math.round(heading);
-                // Nadel drehen (wir drehen das Gehäuse entgegengesetzt zur Nordrichtung)
+                let targetHeading = heading;
+                
+                // 1. Filter-Logik für sanfte Bewegungen (Tiefpassfilter)
+                // Verhindert das wilde Springen, indem sich die Nadel nur zu 15% an den neuen Wert anpasst
+                let diff = targetHeading - currentHeading;
+                
+                // Korrektur für den 360°/0°-Sprung (damit die Nadel nicht im Kreis wirbelt)
+                if (diff > 180) diff -= 360;
+                if (diff < -180) diff += 360;
+                
+                currentHeading += diff * 0.15; // 0.15 bestimmt die Trägheit (kleiner = träger/ruhiger)
+
+                const degrees = Math.round(currentHeading);
+                
+                // 2. Nadel sanft drehen
                 document.getElementById('compass-pointer').style.transform = `rotate(${-degrees}deg)`;
                 
-                // Himmelsrichtung als Text ermitteln
+                // Himmelsrichtung ermitteln
                 let direction = "Nord";
-                if (degrees > 22.5 && degrees <= 67.5) direction = "Nordost";
-                else if (degrees > 67.5 && degrees <= 112.5) direction = "Ost";
-                else if (degrees > 112.5 && degrees <= 157.5) direction = "Südost";
-                else if (degrees > 157.5 && degrees <= 202.5) direction = "Süd";
-                else if (degrees > 202.5 && degrees <= 247.5) direction = "Südwest";
-                else if (degrees > 247.5 && degrees <= 292.5) direction = "West";
-                else if (degrees > 292.5 && degrees <= 337.5) direction = "Nordwest";
+                let normalizedDegrees = (degrees + 360) % 360; // Zwingt den Wert zwischen 0 und 359
                 
-                document.getElementById('compass-degrees').innerText = `${degrees}° ${direction}`;
+                if (normalizedDegrees > 22.5 && normalizedDegrees <= 67.5) direction = "Nordost";
+                else if (normalizedDegrees > 67.5 && normalizedDegrees <= 112.5) direction = "Ost";
+                else if (normalizedDegrees > 112.5 && normalizedDegrees <= 157.5) direction = "Südost";
+                else if (normalizedDegrees > 157.5 && normalizedDegrees <= 202.5) direction = "Süd";
+                else if (normalizedDegrees > 202.5 && normalizedDegrees <= 247.5) direction = "Südwest";
+                else if (normalizedDegrees > 247.5 && normalizedDegrees <= 292.5) direction = "West";
+                else if (normalizedDegrees > 292.5 && normalizedDegrees <= 337.5) direction = "Nordwest";
+                
+                document.getElementById('compass-degrees').innerText = `${normalizedDegrees}° ${direction}`;
             }
         }
 
