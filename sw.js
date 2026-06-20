@@ -1,4 +1,4 @@
-const CACHE_NAME = 'albanien-guide-v1';
+const CACHE_NAME = 'albanien-guide-v2';
 // Hier alle Dateien eintragen, die offline verfügbar sein müssen
 const ASSETS = [
   'index.html',
