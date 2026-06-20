@@ -582,7 +582,7 @@
             if (heading !== null && heading !== undefined) {
                 const degrees = Math.round(heading);
                 // Nadel drehen (wir drehen das Gehäuse entgegengesetzt zur Nordrichtung)
-                document.getElementById('compass-pointer').style.transform = `rotate(${degrees}deg)`;
+                document.getElementById('compass-pointer').style.transform = `rotate(${-degrees}deg)`;
                 
                 // Himmelsrichtung als Text ermitteln
                 let direction = "Nord";
