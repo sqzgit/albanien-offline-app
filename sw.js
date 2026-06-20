@@ -1,12 +1,14 @@
 const CACHE_NAME = 'albanien-guide-v2';
-// Hier alle Dateien eintragen, die offline verfügbar sein müssen
+
+// Hier alle Dateien eintragen, die offline verfügbar sein müssen (mit ./ für stabileres Routing)
 const ASSETS = [
-  'index.html',
-  'manifest.json',
-  'sw.js',
-  'pics/header.png', // <-- Hier auch den Ordner "pics/" davorpacken!
-  'pics/icon_192.png',
-  'pics/icon_512.png'
+  './',
+  './index.html',
+  './manifest.json',
+  './sw.js',
+  './pics/header.png',
+  './pics/icon_192.png',
+  './pics/icon_512.png'
 ];
 
 // Beim Installieren der App werden die Dateien in den Cache geladen
@@ -17,6 +19,8 @@ self.addEventListener('install', event => {
       return cache.addAll(ASSETS);
     })
   );
+  // Zwingt den wartenden Service Worker, sofort aktiv zu werden
+  self.skipWaiting();
 });
 
 // Aktivierung und Löschen alter Caches
@@ -26,16 +30,23 @@ self.addEventListener('activate', event => {
       return Promise.all(
         keys.map(key => {
           if (key !== CACHE_NAME) {
+            console.log('Alten Cache gelöscht:', key);
             return caches.delete(key);
           }
         })
       );
+    }).then(() => {
+      // Übernimmt sofort die Kontrolle über alle geöffneten Tabs/Installationen
+      return self.clients.claim();
     })
   );
 });
 
 // Netzwerk-Anfragen abfangen: Erst im Cache suchen, sonst Netzwerk
 self.addEventListener('fetch', event => {
+  // Nur GET-Anfragen abfangen (wichtig für Browser-Erweiterungen)
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
       return cachedResponse || fetch(event.request);
