@@ -564,12 +564,6 @@
         const KURS = 94.58;
 
         function calcEurToLek() {
-            const eur = document.getElementById('eur').value;
-            const parsedEur = parseFloat(eur.replace && eur.replace(',', '.')) || parseFloat(eur);
-            document.getElementById('lek').value = parsedEur ? Math.round(parsedEur * KURS) : '';
-        }
-
-        function calcEurToLek() {
             const eurInput = document.getElementById('eur');
             const eggBox = document.getElementById('easter-egg-box');
             const eur = eurInput.value;
