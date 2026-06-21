@@ -577,25 +577,32 @@
             const eur = eurInput.value;
             const parsedEur = parseFloat(eur.replace && eur.replace(',', '.')) || parseFloat(eur);
             
-            // HIER DEINE GEHEIMZAHL EINTRAGEN (Beispiel: 123)
-            if (parsedEur === 200426) {
+            // HIER DEINE GEHEIMZAHL EINTRAGEN (Beispiel: 42)
+            if (parsedEur === 42) {
                 // 1. Zeige die geheime Nachricht
                 eggBox.style.display = 'block';
                 
-                // 2. Lass das Handy kurz vibrieren (funktioniert auf Android/Chrome)
+                // 2. Bonus-Schabernack im Wechselkurs-Feld
+                document.getElementById('lek').value = "999999";
+                
+                // 3. Tastatur schließen (nimmt den Fokus vom Eingabefeld)
+                eurInput.blur();
+                
+                // 4. Automatisch zur Nachricht scrollen
+                // Das sorgt dafür, dass die Box sanft in die Mitte des Bildschirms gleitet
+                setTimeout(() => {
+                    eggBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100); // Kleiner Timeout, damit die Tastatur Zeit hat einzuklappen
+                
+                // 5. Handy kurz vibrieren lassen
                 if (navigator.vibrate) {
                     navigator.vibrate([100, 50, 100]);
                 }
-                
-                // 3. Den LEK-Wechselkurs als kleinen Bonus-Schabernack auf unendlich setzen
-                document.getElementById('lek').value = "999999999999";
-                return; // Stoppt hier, damit die normale Berechnung übersprungen wird
+                return; 
             } else {
-                // Wenn eine andere Zahl eingegeben wird, die Box wieder verstecken
                 eggBox.style.display = 'none';
             }
 
-            // Die ganz normale Umrechnung von vorhin
             document.getElementById('lek').value = parsedEur ? Math.round(parsedEur * KURS) : '';
         }
 
