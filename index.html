@@ -222,6 +222,25 @@
         .badge.veggie { background-color: #edf4ec; color: #3e703f; }
         .badge.vegan { background-color: #e6f3f2; color: #2d6a61; }
 
+        /* Easter Egg Styles */
+        .secret-message {
+            display: none;
+            background: linear-gradient(135deg, #f5eae4 0%, #edf4ec 100%);
+            border: 2px dashed var(--accent);
+            border-radius: 14px;
+            padding: 16px;
+            text-align: center;
+            margin-top: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
         /* Infos & Kontakte */
         .info-list {
             display: flex;
@@ -316,6 +335,10 @@
                     <span class="unit">Lek</span>
                 </div>
                 <div class="calc-info">Wechselkurs: 1 EUR = 94,58 Lek</div>
+                <div id="easter-egg-box" class="secret-message">
+                    Egal wie der Wechselkurs steht:<br>
+                    Du bist unbezahlbar! ❤️ 
+                </div>
                 
                 <div style="border-top: 1px solid var(--border); margin-top: 10px; padding-top: 14px;">
                     <div class="input-group">
@@ -548,23 +571,32 @@
             document.getElementById('lek').value = parsedEur ? Math.round(parsedEur * KURS) : '';
         }
 
-        function calcLekToEur() {
-            const lek = document.getElementById('lek').value;
-            document.getElementById('eur').value = lek ? (lek / KURS).toFixed(2) : '';
-        }
-
-        function calculateTip() {
-            const bill = parseFloat(document.getElementById('billAmount').value) || 0;
-            if (bill > 0) {
-                const tip = Math.round(bill * 0.10);
-                document.getElementById('tipResult').innerText = tip + " Lek";
-                document.getElementById('totalResult').innerText = (bill + tip) + " Lek";
-                document.getElementById('tipInEuro').innerText = `Das entspricht ca. ${(tip / KURS).toFixed(2)} € Trinkgeld`;
+        function calcEurToLek() {
+            const eurInput = document.getElementById('eur');
+            const eggBox = document.getElementById('easter-egg-box');
+            const eur = eurInput.value;
+            const parsedEur = parseFloat(eur.replace && eur.replace(',', '.')) || parseFloat(eur);
+            
+            // HIER DEINE GEHEIMZAHL EINTRAGEN (Beispiel: 123)
+            if (parsedEur === 200426) {
+                // 1. Zeige die geheime Nachricht
+                eggBox.style.display = 'block';
+                
+                // 2. Lass das Handy kurz vibrieren (funktioniert auf Android/Chrome)
+                if (navigator.vibrate) {
+                    navigator.vibrate([100, 50, 100]);
+                }
+                
+                // 3. Den LEK-Wechselkurs als kleinen Bonus-Schabernack auf unendlich setzen
+                document.getElementById('lek').value = "999999999999";
+                return; // Stoppt hier, damit die normale Berechnung übersprungen wird
             } else {
-                document.getElementById('tipResult').innerText = "0 Lek";
-                document.getElementById('totalResult').innerText = "0 Lek";
-                document.getElementById('tipInEuro').innerText = "Das entspricht ca. 0.00 € Trinkgeld";
+                // Wenn eine andere Zahl eingegeben wird, die Box wieder verstecken
+                eggBox.style.display = 'none';
             }
+
+            // Die ganz normale Umrechnung von vorhin
+            document.getElementById('lek').value = parsedEur ? Math.round(parsedEur * KURS) : '';
         }
 
         const audioFiles = {
