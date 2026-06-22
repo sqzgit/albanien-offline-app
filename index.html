@@ -563,45 +563,78 @@
     <script>
         const KURS = 94.58;
 
+        // 1. Richtung: Euro zu Lek
         function calcEurToLek() {
             const eurInput = document.getElementById('eur');
-            const eggBox = document.getElementById('easter-egg-box');
             const lekInput = document.getElementById('lek');
+            const eggBox = document.getElementById('easter-egg-box');
             
-            // Bereinigt die Eingabe (Komma zu Punkt für die mathematische Umwandlung)
             let rawValue = eurInput.value.trim().replace(',', '.');
             const parsedEur = parseFloat(rawValue);
             
-            // 1. PRÜFUNG AUF DAS GEHEIMDATUM (20.04.26)
+            // Prüfung auf das Geheimdatum (20.04.26)
             if (parsedEur === 200426) {
-                // Zeige die geheime Nachricht
                 eggBox.style.display = 'block';
-                
-                // Bonus-Schabernack im Wechselkurs-Feld
                 lekInput.value = "999999";
-                
-                // Tastatur einklappen
                 eurInput.blur();
                 
-                // Sanft ins Blickfeld scrollen
                 setTimeout(() => {
                     eggBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 200);
                 
-                // Handy vibrieren lassen
                 if (navigator.vibrate) {
                     navigator.vibrate([100, 50, 100]);
                 }
-                return; // Ganz wichtig: Beendet die Funktion sofort!
+                
+                calculateTip(); 
+                return; 
             } 
             
-            // 2. NORMALE BERECHNUNG (wird nur ausgeführt, wenn es NICHT die Geheimzahl ist)
-            eggBox.style.display = 'none'; // Versteckt die Box, falls vorher die Geheimzahl drin stand
+            eggBox.style.display = 'none'; 
             
             if (!isNaN(parsedEur) && parsedEur > 0) {
                 lekInput.value = Math.round(parsedEur * KURS);
             } else {
-                lekInput.value = ''; // Feld leeren, wenn die Eingabe gelöscht wird
+                lekInput.value = ''; 
+            }
+
+            calculateTip();
+        }
+
+        function calcLekToEur() {
+            const eurInput = document.getElementById('eur');
+            const lekInput = document.getElementById('lek');
+            
+            // Bereinigt die Lek-Eingabe (falls doch mal ein Komma reingerät)
+            let rawValue = lekInput.value.trim().replace(',', '.');
+            const parsedLek = parseFloat(rawValue);
+            
+            if (!isNaN(parsedLek) && parsedLek > 0) {
+                // Berechnet den Euro-Wert (z.B. 1000 Lek / 100 = 10 Euro)
+                const eurResult = parsedLek / KURS;
+                
+                // WICHTIG: .toFixed(2) sorgt für zwei Nachkommastellen (z.B. 10.50).
+                // Wir lassen den Punkt hier stehen, da type="number" im HTML sonst streikt!
+                eurInput.value = eurResult.toFixed(2);
+            } else {
+                eurInput.value = ''; 
+            }
+
+            // Aktualisiert natürlich auch sofort euer Urlaubs-Trinkgeld!
+            calculateTip();
+        }
+
+        function calculateTip() {
+            const bill = parseFloat(document.getElementById('billAmount').value) || 0;
+            if (bill > 0) {
+                const tip = Math.round(bill * 0.10);
+                document.getElementById('tipResult').innerText = tip + " Lek";
+                document.getElementById('totalResult').innerText = (bill + tip) + " Lek";
+                document.getElementById('tipInEuro').innerText = `Das entspricht ca. ${(tip / KURS).toFixed(2)} € Trinkgeld`;
+            } else {
+                document.getElementById('tipResult').innerText = "0 Lek";
+                document.getElementById('totalResult').innerText = "0 Lek";
+                document.getElementById('tipInEuro').innerText = "Das entspricht ca. 0.00 € Trinkgeld";
             }
         }
 
